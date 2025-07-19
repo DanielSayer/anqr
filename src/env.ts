@@ -10,6 +10,7 @@ export const env = createEnv({
     BETTER_AUTH_SECRET: z.string().min(1),
     BETTER_AUTH_URL: z.string().url(),
     DATABASE_URL: z.string().url().min(1),
+    RP_ID: z.string().min(1),
   },
   /*
    * Environment variables available on the client (and server).
