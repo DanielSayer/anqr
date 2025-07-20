@@ -1,33 +1,18 @@
-import { useRef, useState } from "react";
-import { Button } from "./ui/button";
-import { Input } from "./ui/input";
-import { Label } from "./ui/label";
-import { Loader2, X } from "lucide-react";
-import { type } from "arktype";
+import { Plus, X } from "lucide-react";
+import { useState } from "react";
+import Dropzone from "react-dropzone";
 import { useAppForm } from "~/hooks/use-app-form";
-import { Password } from "~/lib/types";
-import { useStore } from "@tanstack/react-form";
-
-const User = type({
-  firstName: "string",
-  lastName: "string",
-  email: "string",
-  password: Password,
-  confirmPassword: "string",
-  image: "File | undefined",
-}).narrow((data, ctx) => {
-  if (data.password === data.confirmPassword) {
-    return true;
-  }
-
-  return ctx.reject({
-    message: "Passwords do not match",
-    path: ["confirmPassword"],
-  });
-});
+import { UserSchema } from "~/lib/schemas/user";
+import { LoadingButton } from "./loading-button";
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import { Button } from "./ui/button";
+import { Label } from "./ui/label";
 
 function SignUpForm() {
-  const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const [image, setImage] = useState<{
+    name: string;
+    preview: string;
+  } | null>(null);
 
   const form = useAppForm({
     defaultValues: {
@@ -38,16 +23,16 @@ function SignUpForm() {
       confirmPassword: "",
       image: undefined as File | undefined,
     },
-    schema: User,
+    schema: UserSchema,
   });
 
-  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
+  const handleImageUpload = (files: File[]) => {
+    const file = files[0];
     if (file) {
       form.setFieldValue("image", file);
       const reader = new FileReader();
       reader.onloadend = () => {
-        setImagePreview(reader.result as string);
+        setImage({ name: file.name, preview: reader.result as string });
       };
       reader.readAsDataURL(file);
     }
@@ -55,7 +40,7 @@ function SignUpForm() {
 
   const handleImageRemove = () => {
     form.setFieldValue("image", undefined);
-    setImagePreview(null);
+    setImage(null);
   };
 
   return (
@@ -78,6 +63,7 @@ function SignUpForm() {
             label="Email"
             type="email"
             placeholder="m@example.com"
+            autoComplete="email"
             required
           />
         )}
@@ -87,6 +73,7 @@ function SignUpForm() {
           <field.Input
             label="Password"
             type="password"
+            autoComplete="new-password"
             placeholder="Password"
           />
         )}
@@ -96,6 +83,7 @@ function SignUpForm() {
           <field.Input
             label="Confirm Password"
             type="password"
+            autoComplete="new-password"
             placeholder="Confirm Password"
           />
         )}
@@ -103,45 +91,52 @@ function SignUpForm() {
       <div className="grid gap-2">
         <Label htmlFor="image">Profile Image (optional)</Label>
         <div className="flex items-end gap-4">
-          {imagePreview && (
-            <div className="relative w-16 h-16 rounded-sm overflow-hidden">
-              <img
-                src={imagePreview}
-                alt="Profile preview"
-                className="w-full h-full object-cover"
-              />
-            </div>
+          {image && (
+            <Avatar>
+              <AvatarImage src={image.preview} />
+              <AvatarFallback>AQ</AvatarFallback>
+            </Avatar>
           )}
           <div className="flex items-center gap-2 w-full">
-            {/** TODO: fix USE DROPZONE */}
-            <Input
-              id="image"
-              type="file"
-              accept="image/*"
-              onChange={handleImageUpload}
-              className="w-full"
-            />
-            {imagePreview && (
-              <Button
-                variant="ghost"
-                size="icon"
-                type="button"
-                onClick={handleImageRemove}
-              >
-                <X />
-                <span className="sr-only">Remove image</span>
-              </Button>
-            )}
+            <Dropzone multiple={false} onDropAccepted={handleImageUpload}>
+              {({ getRootProps, getInputProps }) => (
+                <div
+                  {...getRootProps()}
+                  className="flex items-center gap-2 w-full"
+                >
+                  <div className="w-full flex gap-2 rounded-md items-center border h-9 px-3 cursor-pointer text-sm">
+                    <Plus className="size-4 " />
+                    {image ? image.name : "Add image"}
+                    <input id="image" {...getInputProps()} />
+                  </div>
+                  {image && (
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleImageRemove();
+                      }}
+                    >
+                      <X />
+                      <span className="sr-only">Remove image</span>
+                    </Button>
+                  )}
+                </div>
+              )}
+            </Dropzone>
           </div>
         </div>
       </div>
-      <Button type="submit" className="w-full">
-        {false ? (
-          <Loader2 size={16} className="animate-spin" />
-        ) : (
-          "Create an account"
-        )}
-      </Button>
+      <LoadingButton
+        type="submit"
+        className="w-full"
+        isLoading={true}
+        loadingText="Creating account..."
+      >
+        Create an account
+      </LoadingButton>
     </form>
   );
 }

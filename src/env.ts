@@ -1,5 +1,5 @@
 import { createEnv } from "@t3-oss/env-core";
-import { z } from "zod";
+import { type } from "arktype";
 
 export const env = createEnv({
   /*
@@ -7,10 +7,10 @@ export const env = createEnv({
    * Will throw if you access these variables on the client.
    */
   server: {
-    BETTER_AUTH_SECRET: z.string().min(1),
-    BETTER_AUTH_URL: z.string().url(),
-    DATABASE_URL: z.string().url().min(1),
-    RP_ID: z.string().min(1),
+    BETTER_AUTH_SECRET: type("string").atLeastLength(1),
+    BETTER_AUTH_URL: type("string.url"),
+    DATABASE_URL: type("string.url"),
+    RP_ID: type("string").atLeastLength(1),
   },
   /*
    * Environment variables available on the client (and server).
