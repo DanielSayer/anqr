@@ -2,16 +2,6 @@ import { type } from "arktype";
 import { Password } from "./misc";
 
 const MAX_FILE_SIZE = 4 * 1024 * 1024;
-const ProfilePicture = type("File | undefined").narrow((data, ctx) => {
-  if (data?.size && data.size > MAX_FILE_SIZE) {
-    return ctx.reject({
-      message: "Profile picture must be less than 4MB",
-      path: ["image"],
-    });
-  }
-
-  return true;
-});
 
 export const UserSchema = type({
   firstName: type("string")

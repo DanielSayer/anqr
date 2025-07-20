@@ -31,7 +31,11 @@ const useFormField = <T,>() => {
     id,
     formDescriptionId: `${id}-form-description`,
     formMessageId: `${id}-form-message`,
-    isError: errors.length > 0,
+    isError: IsError(
+      field.form.state.submissionAttempts > 0,
+      errors.length,
+      field.state.meta.isBlurred
+    ),
     errors,
     field,
   };
@@ -133,3 +137,15 @@ export {
   FormMessage,
   useFormField,
 };
+
+function IsError(
+  hasSubmitted: boolean,
+  errorCount: number,
+  isBlurred: boolean
+) {
+  if (hasSubmitted && errorCount > 0) {
+    return true;
+  }
+
+  return isBlurred && errorCount > 0;
+}

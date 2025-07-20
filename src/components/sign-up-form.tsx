@@ -96,14 +96,10 @@ function SignUpForm() {
     >
       <div className="grid grid-cols-2 gap-4">
         <form.AppField name="firstName">
-          {(field) => (
-            <field.Input label="First name" placeholder="Max" required />
-          )}
+          {(field) => <field.Input label="First name" placeholder="Max" />}
         </form.AppField>
         <form.AppField name="lastName">
-          {(field) => (
-            <field.Input label="Last name" placeholder="Robinson" required />
-          )}
+          {(field) => <field.Input label="Last name" placeholder="Robinson" />}
         </form.AppField>
       </div>
       <form.AppField name="email">
@@ -113,7 +109,6 @@ function SignUpForm() {
             type="email"
             placeholder="m@example.com"
             autoComplete="email"
-            required
           />
         )}
       </form.AppField>
