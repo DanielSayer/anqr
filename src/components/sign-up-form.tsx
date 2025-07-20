@@ -2,11 +2,13 @@ import { Plus, X } from "lucide-react";
 import { useState } from "react";
 import Dropzone from "react-dropzone";
 import { useAppForm } from "~/hooks/use-app-form";
-import { UserSchema } from "~/lib/schemas/user";
+import { type User, UserSchema } from "~/lib/schemas/user";
 import { LoadingButton } from "./loading-button";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Button } from "./ui/button";
 import { Label } from "./ui/label";
+import { useMutation } from "@tanstack/react-query";
+import { signUp } from "~/utils/auth-client";
 
 function SignUpForm() {
   const [image, setImage] = useState<{
@@ -22,6 +24,9 @@ function SignUpForm() {
       password: "",
       confirmPassword: "",
       image: undefined as File | undefined,
+    },
+    onSubmit: async ({ value }) => {
+      await mutateAsync(value);
     },
     schema: UserSchema,
   });
@@ -43,8 +48,24 @@ function SignUpForm() {
     setImage(null);
   };
 
+  const { mutateAsync, isPending } = useMutation({
+    mutationFn: async (user: User) => {
+      return await signUp.email({
+        email: user.email,
+        password: user.password,
+        name: `${user.firstName} ${user.lastName}`,
+      });
+    },
+  });
+
   return (
-    <form className="grid gap-2">
+    <form
+      className="grid gap-2"
+      onSubmit={(e) => {
+        e.preventDefault();
+        form.handleSubmit();
+      }}
+    >
       <div className="grid grid-cols-2 gap-4">
         <form.AppField name="firstName">
           {(field) => (
@@ -132,7 +153,7 @@ function SignUpForm() {
       <LoadingButton
         type="submit"
         className="w-full"
-        isLoading={true}
+        isLoading={isPending}
         loadingText="Creating account..."
       >
         Create an account

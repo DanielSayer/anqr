@@ -44,7 +44,7 @@ export const useAppForm = <
     TOnServer,
     TSubmitMeta
   >,
-  "validators" | "onSubmit"
+  "validators"
 > & {
   schema: TOnChange;
 }) => {
