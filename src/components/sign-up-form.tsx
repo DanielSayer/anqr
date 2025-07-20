@@ -1,16 +1,23 @@
+import { useMutation } from "@tanstack/react-query";
+import { useDropzone } from "@uploadthing/react";
 import { Plus, X } from "lucide-react";
 import { useState } from "react";
-import Dropzone from "react-dropzone";
+import {
+  generateClientDropzoneAccept,
+  generatePermittedFileTypes,
+} from "uploadthing/client";
 import { useAppForm } from "~/hooks/use-app-form";
 import { type User, UserSchema } from "~/lib/schemas/user";
+import { signUp } from "~/utils/auth-client";
+import { useUploadThing } from "~/utils/uploadthing";
 import { LoadingButton } from "./loading-button";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Button } from "./ui/button";
 import { Label } from "./ui/label";
-import { useMutation } from "@tanstack/react-query";
-import { signUp } from "~/utils/auth-client";
+import { FormControl, FormLabel, FormMessage } from "./form";
 
 function SignUpForm() {
+  const [loadingText, setLoadingText] = useState("Creating account...");
   const [image, setImage] = useState<{
     name: string;
     preview: string;
@@ -44,18 +51,39 @@ function SignUpForm() {
   };
 
   const handleImageRemove = () => {
-    form.setFieldValue("image", undefined);
+    form.resetField("image");
     setImage(null);
   };
 
   const { mutateAsync, isPending } = useMutation({
     mutationFn: async (user: User) => {
-      return await signUp.email({
+      await signUp.email({
         email: user.email,
         password: user.password,
         name: `${user.firstName} ${user.lastName}`,
       });
+
+      if (user.image) {
+        await startUpload([user.image]);
+      }
     },
+    onSuccess: () => {
+      setLoadingText("Account created!");
+    },
+  });
+
+  const { startUpload, routeConfig } = useUploadThing("imageUploader", {
+    onUploadBegin: () => {
+      setLoadingText("Uploading your profile picture...");
+    },
+  });
+
+  const { getInputProps, getRootProps } = useDropzone({
+    multiple: false,
+    onDrop: handleImageUpload,
+    accept: generateClientDropzoneAccept(
+      generatePermittedFileTypes(routeConfig).fileTypes
+    ),
   });
 
   return (
@@ -109,18 +137,18 @@ function SignUpForm() {
           />
         )}
       </form.AppField>
-      <div className="grid gap-2">
-        <Label htmlFor="image">Profile Image (optional)</Label>
-        <div className="flex items-end gap-4">
-          {image && (
-            <Avatar>
-              <AvatarImage src={image.preview} />
-              <AvatarFallback>AQ</AvatarFallback>
-            </Avatar>
-          )}
-          <div className="flex items-center gap-2 w-full">
-            <Dropzone multiple={false} onDropAccepted={handleImageUpload}>
-              {({ getRootProps, getInputProps }) => (
+      <form.AppField name="image">
+        {() => (
+          <div className="grid gap-2">
+            <FormLabel>Profile Image (optional)</FormLabel>
+            <div className="flex items-end gap-4">
+              {image && (
+                <Avatar>
+                  <AvatarImage src={image.preview} />
+                  <AvatarFallback>AQ</AvatarFallback>
+                </Avatar>
+              )}
+              <div className="flex items-center gap-2 w-full">
                 <div
                   {...getRootProps()}
                   className="flex items-center gap-2 w-full"
@@ -128,7 +156,13 @@ function SignUpForm() {
                   <div className="w-full flex gap-2 rounded-md items-center border h-9 px-3 cursor-pointer text-sm">
                     <Plus className="size-4 " />
                     {image ? image.name : "Add image"}
-                    <input id="image" {...getInputProps()} />
+                    <FormControl>
+                      <input
+                        id="image"
+                        key={image?.name}
+                        {...getInputProps()}
+                      />
+                    </FormControl>
                   </div>
                   {image && (
                     <Button
@@ -145,16 +179,17 @@ function SignUpForm() {
                     </Button>
                   )}
                 </div>
-              )}
-            </Dropzone>
+              </div>
+            </div>
+            <FormMessage />
           </div>
-        </div>
-      </div>
+        )}
+      </form.AppField>
       <LoadingButton
         type="submit"
         className="w-full"
         isLoading={isPending}
-        loadingText="Creating account..."
+        loadingText={loadingText}
       >
         Create an account
       </LoadingButton>

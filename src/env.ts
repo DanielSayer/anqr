@@ -11,6 +11,7 @@ export const env = createEnv({
     BETTER_AUTH_URL: type("string.url"),
     DATABASE_URL: type("string.url"),
     RP_ID: type("string").atLeastLength(1),
+    UPLOADTHING_TOKEN: type("string").atLeastLength(1),
   },
   /*
    * Environment variables available on the client (and server).

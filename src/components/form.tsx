@@ -112,7 +112,6 @@ function FormMessage({
   return (
     <>
       {errors.map((e) => {
-        console.log(e.message);
         return (
           <p
             key={typeof e === "string" ? e : e.message}
