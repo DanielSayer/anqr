@@ -26,9 +26,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           content: "width=device-width, initial-scale=1",
         },
         ...seo({
-          title:
-            "TanStack Start | Type-Safe, Client-First, Full-Stack React Framework",
-          description: `TanStack Start is a type-safe, client-first, full-stack React framework. `,
+          title: "anqr | the best way to organize your business",
+          description: `anqr is a platform that helps you organize your business.`,
         }),
       ],
       links: [
