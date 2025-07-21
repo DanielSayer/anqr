@@ -1,5 +1,5 @@
 import { createFileRoute, Outlet, useLocation } from "@tanstack/react-router";
-import { AnimatePresence, motion } from "motion/react";
+import { motion } from "motion/react";
 
 export const Route = createFileRoute("/(auth)/_auth")({
   component: LayoutComponent,
@@ -9,7 +9,7 @@ function LayoutComponent() {
   const location = useLocation();
 
   return (
-    <AnimatePresence mode="wait">
+    <div>
       <div className="w-full min-h-screen bg-muted"></div>
       <motion.div
         key={location.pathname}
@@ -25,6 +25,6 @@ function LayoutComponent() {
       >
         <Outlet />
       </motion.div>
-    </AnimatePresence>
+    </div>
   );
 }
