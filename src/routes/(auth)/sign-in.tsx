@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { SignInForm } from "~/components/sign-in-form";
 import { SignUpForm } from "~/components/sign-up-form";
 import { buttonVariants } from "~/components/ui/button";
 import {
@@ -10,7 +11,7 @@ import {
   CardFooter,
 } from "~/components/ui/card";
 
-export const Route = createFileRoute("/(auth)/_auth/sign-in")({
+export const Route = createFileRoute("/(auth)/sign-in")({
   component: RouteComponent,
 });
 
@@ -19,7 +20,7 @@ function RouteComponent() {
     <div className="w-full flex">
       <div className="flex-1 grid place-items-center bg-background">
         <div>
-          <Card className="max-w-md">
+          <Card className="min-w-sm max-w-md">
             <CardHeader>
               <CardTitle className="text-lg md:text-xl">Sign In</CardTitle>
               <CardDescription className="text-xs md:text-sm">
@@ -27,7 +28,7 @@ function RouteComponent() {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <SignUpForm />
+              <SignInForm />
             </CardContent>
             <CardFooter>
               <div className="flex justify-center w-full border-t py-4">

@@ -10,11 +10,10 @@ import { useAppForm } from "~/hooks/use-app-form";
 import { type User, UserSchema } from "~/lib/schemas/user";
 import { signUp } from "~/utils/auth-client";
 import { useUploadThing } from "~/utils/uploadthing";
+import { FormControl, FormLabel, FormMessage } from "./form";
 import { LoadingButton } from "./loading-button";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Button } from "./ui/button";
-import { Label } from "./ui/label";
-import { FormControl, FormLabel, FormMessage } from "./form";
 
 function SignUpForm() {
   const [loadingText, setLoadingText] = useState("Creating account...");
@@ -35,7 +34,9 @@ function SignUpForm() {
     onSubmit: async ({ value }) => {
       await mutateAsync(value);
     },
-    schema: UserSchema,
+    validators: {
+      onChange: UserSchema,
+    },
   });
 
   const handleImageUpload = (files: File[]) => {

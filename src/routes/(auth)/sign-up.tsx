@@ -10,7 +10,7 @@ import {
   CardFooter,
 } from "~/components/ui/card";
 
-export const Route = createFileRoute("/(auth)/_auth/sign-up")({
+export const Route = createFileRoute("/(auth)/sign-up")({
   component: RouteComponent,
 });
 

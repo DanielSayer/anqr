@@ -5,6 +5,7 @@ import { useStore } from "@tanstack/react-form";
 import { createContext, use, useId } from "react";
 import { Label } from "./ui/label";
 import type { ArkError } from "arktype";
+import { ErrorMessage } from "./error-message";
 
 type FormItemContextValue = {
   id: string;
@@ -107,7 +108,7 @@ function FormMessage({
 
   if (!isError) {
     return (
-      <p className={cn("min-h-4", className)} {...props}>
+      <p className={cn("min-h-2", className)} {...props}>
         {children}
       </p>
     );
@@ -117,12 +118,12 @@ function FormMessage({
     <>
       {errors.map((e) => {
         return (
-          <p
+          <ErrorMessage
+            className={className}
             key={typeof e === "string" ? e : e.message}
-            className={cn("text-xs font-medium text-destructive", className)}
           >
             {typeof e === "string" ? e : e.message}
-          </p>
+          </ErrorMessage>
         );
       })}
     </>

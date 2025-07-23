@@ -1,14 +1,8 @@
 import { createFormHook } from "@tanstack/react-form";
-import type {
-  FormAsyncValidateOrFn,
-  FormOptions,
-  FormValidateOrFn,
-  StandardSchemaV1,
-} from "@tanstack/react-form";
-import { fieldContext, formContext } from "./form-context";
 import { Input } from "~/components/form-fields";
+import { fieldContext, formContext } from "./form-context";
 
-const { useAppForm: useTanstackAppForm } = createFormHook({
+export const { useAppForm } = createFormHook({
   fieldComponents: {
     Input,
   },
@@ -16,37 +10,3 @@ const { useAppForm: useTanstackAppForm } = createFormHook({
   fieldContext,
   formContext,
 });
-
-export const useAppForm = <
-  TFormData,
-  TOnMount extends undefined | FormValidateOrFn<TFormData>,
-  TOnChange extends undefined | StandardSchemaV1<TFormData>,
-  TOnChangeAsync extends undefined | FormAsyncValidateOrFn<TFormData>,
-  TOnBlur extends undefined | FormValidateOrFn<TFormData>,
-  TOnBlurAsync extends undefined | FormAsyncValidateOrFn<TFormData>,
-  TOnSubmit extends undefined | FormValidateOrFn<TFormData>,
-  TOnSubmitAsync extends undefined | FormAsyncValidateOrFn<TFormData>,
-  TOnServer extends undefined | FormAsyncValidateOrFn<TFormData>,
-  TSubmitMeta,
->({
-  schema,
-  ...props
-}: Omit<
-  FormOptions<
-    TFormData,
-    TOnMount,
-    TOnChange,
-    TOnChangeAsync,
-    TOnBlur,
-    TOnBlurAsync,
-    TOnSubmit,
-    TOnSubmitAsync,
-    TOnServer,
-    TSubmitMeta
-  >,
-  "validators"
-> & {
-  schema: TOnChange;
-}) => {
-  return useTanstackAppForm({ ...props, validators: { onChange: schema } });
-};
