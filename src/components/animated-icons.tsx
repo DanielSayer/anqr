@@ -18,6 +18,7 @@ function AnimatedCheckIcon({ isChecked, className }: AnimatedCheckIconProps) {
       initial="unchecked"
       animate={isChecked ? "checked" : "unchecked"}
     >
+      <title>Check mark</title>
       <motion.path
         strokeLinecap="round"
         strokeLinejoin="round"

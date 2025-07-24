@@ -1,4 +1,4 @@
-import { ComponentProps } from "react";
+import type { ComponentProps } from "react";
 import { AnimatedCheckIcon } from "./animated-icons";
 import { LoadingButton } from "./loading-button";
 

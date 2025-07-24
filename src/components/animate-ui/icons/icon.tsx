@@ -1,10 +1,10 @@
-import * as React from "react";
 import {
-  SVGMotionProps,
-  useAnimation,
   type LegacyAnimationControls,
+  type SVGMotionProps,
+  useAnimation,
   type Variants,
 } from "motion/react";
+import * as React from "react";
 
 import { cn } from "~/lib/utils";
 
@@ -49,7 +49,7 @@ interface DefaultIconProps<T = string> {
   animate?: TriggerProp<T>;
   onAnimateChange?: (
     value: boolean,
-    animation: StaticAnimations | string,
+    animation: StaticAnimations | string
   ) => void;
   animateOnHover?: TriggerProp<T>;
   animateOnTap?: TriggerProp<T>;
@@ -61,7 +61,7 @@ interface DefaultIconProps<T = string> {
 }
 
 interface AnimateIconProps<T = string> extends DefaultIconProps<T> {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation> Library code
   children: React.ReactElement<any, any>;
 }
 
@@ -79,7 +79,7 @@ interface IconWrapperProps<T> extends IconProps<T> {
 }
 
 const AnimateIconContext = React.createContext<AnimateIconContextValue | null>(
-  null,
+  null
 );
 
 function useAnimateIconContext() {
@@ -116,23 +116,23 @@ function AnimateIcon({
         typeof trigger === "string" ? trigger : animation;
       setLocalAnimate(true);
     },
-    [animation],
+    [animation]
   );
 
   const stopAnimation = React.useCallback(() => {
     setLocalAnimate(false);
   }, []);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation> Library code
   React.useEffect(() => {
     currentAnimation.current =
       typeof animate === "string" ? animate : animation;
     setLocalAnimate(!!animate);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [animate]);
 
   React.useEffect(
     () => onAnimateChange?.(localAnimate, currentAnimation.current),
-    [localAnimate, onAnimateChange],
+    [localAnimate, onAnimateChange]
   );
 
   React.useEffect(() => {
@@ -226,7 +226,7 @@ function IconWrapper<T extends string>({
           className={cn(
             className,
             (animationToUse === "path" || animationToUse === "path-loop") &&
-              pathClassName,
+              pathClassName
           )}
           {...props}
         />
@@ -258,7 +258,7 @@ function IconWrapper<T extends string>({
           className={cn(
             className,
             (animationProp === "path" || animationProp === "path-loop") &&
-              pathClassName,
+              pathClassName
           )}
           {...props}
         />
@@ -272,7 +272,7 @@ function IconWrapper<T extends string>({
       className={cn(
         className,
         (animationProp === "path" || animationProp === "path-loop") &&
-          pathClassName,
+          pathClassName
       )}
       {...props}
     />
@@ -305,7 +305,7 @@ function getVariants<
 
   if (loop) {
     for (const key in result) {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      // biome-ignore lint/suspicious/noExplicitAny: <explanation> Library code
       const state = result[key] as any;
       const transition = state.animate?.transition;
       if (!transition) continue;
@@ -314,7 +314,7 @@ function getVariants<
         (v) =>
           typeof v === "object" &&
           v !== null &&
-          ("ease" in v || "duration" in v || "times" in v),
+          ("ease" in v || "duration" in v || "times" in v)
       );
 
       if (hasNestedKeys) {
@@ -344,14 +344,14 @@ function getVariants<
 }
 
 export {
+  AnimateIcon,
+  getVariants,
+  IconWrapper,
   pathClassName,
   staticAnimations,
-  AnimateIcon,
-  IconWrapper,
   useAnimateIconContext,
-  getVariants,
+  type AnimateIconContextValue,
+  type AnimateIconProps,
   type IconProps,
   type IconWrapperProps,
-  type AnimateIconProps,
-  type AnimateIconContextValue,
 };

@@ -2,10 +2,10 @@ import { motion, type Variants } from "motion/react";
 
 import {
   getVariants,
-  useAnimateIconContext,
-  IconWrapper,
   type IconProps,
+  IconWrapper,
   pathClassName,
+  useAnimateIconContext,
 } from "~/components/animate-ui/icons/icon";
 import { cn } from "~/lib/utils";
 
@@ -105,6 +105,7 @@ function IconComponent({ size, className, ...props }: FingerprintProps) {
       animate={controls}
       {...props}
     >
+      <title>Fingerprint</title>
       <motion.path
         stroke="currentColor"
         variants={variants.path}

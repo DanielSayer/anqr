@@ -16,7 +16,8 @@
     "enabled": true,
     "rules": {
       "recommended": true
-    }
+    },
+    "includes": ["!routeTree.gen.ts"]
   },
   "javascript": {
     "formatter": {

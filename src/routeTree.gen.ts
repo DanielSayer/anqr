@@ -8,180 +8,180 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { createServerRootRoute } from "@tanstack/react-start/server";
+import { createServerRootRoute } from '@tanstack/react-start/server'
 
-import { Route as rootRouteImport } from "./routes/__root";
-import { Route as DashboardRouteImport } from "./routes/dashboard";
-import { Route as IndexRouteImport } from "./routes/index";
-import { Route as authSignUpRouteImport } from "./routes/(auth)/sign-up";
-import { Route as authSignInRouteImport } from "./routes/(auth)/sign-in";
-import { Route as authPasskeyRouteImport } from "./routes/(auth)/passkey";
-import { ServerRoute as ApiUploadthingSplatServerRouteImport } from "./routes/api/uploadthing/$";
-import { ServerRoute as ApiAuthSplatServerRouteImport } from "./routes/api/auth/$";
+import { Route as rootRouteImport } from './routes/__root'
+import { Route as DashboardRouteImport } from './routes/dashboard'
+import { Route as IndexRouteImport } from './routes/index'
+import { Route as authSignUpRouteImport } from './routes/(auth)/sign-up'
+import { Route as authSignInRouteImport } from './routes/(auth)/sign-in'
+import { Route as authPasskeyRouteImport } from './routes/(auth)/passkey'
+import { ServerRoute as ApiUploadthingSplatServerRouteImport } from './routes/api/uploadthing/$'
+import { ServerRoute as ApiAuthSplatServerRouteImport } from './routes/api/auth/$'
 
-const rootServerRouteImport = createServerRootRoute();
+const rootServerRouteImport = createServerRootRoute()
 
 const DashboardRoute = DashboardRouteImport.update({
-  id: "/dashboard",
-  path: "/dashboard",
+  id: '/dashboard',
+  path: '/dashboard',
   getParentRoute: () => rootRouteImport,
-} as any);
+} as any)
 const IndexRoute = IndexRouteImport.update({
-  id: "/",
-  path: "/",
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
-} as any);
+} as any)
 const authSignUpRoute = authSignUpRouteImport.update({
-  id: "/(auth)/sign-up",
-  path: "/sign-up",
+  id: '/(auth)/sign-up',
+  path: '/sign-up',
   getParentRoute: () => rootRouteImport,
-} as any);
+} as any)
 const authSignInRoute = authSignInRouteImport.update({
-  id: "/(auth)/sign-in",
-  path: "/sign-in",
+  id: '/(auth)/sign-in',
+  path: '/sign-in',
   getParentRoute: () => rootRouteImport,
-} as any);
+} as any)
 const authPasskeyRoute = authPasskeyRouteImport.update({
-  id: "/(auth)/passkey",
-  path: "/passkey",
+  id: '/(auth)/passkey',
+  path: '/passkey',
   getParentRoute: () => rootRouteImport,
-} as any);
+} as any)
 const ApiUploadthingSplatServerRoute =
   ApiUploadthingSplatServerRouteImport.update({
-    id: "/api/uploadthing/$",
-    path: "/api/uploadthing/$",
+    id: '/api/uploadthing/$',
+    path: '/api/uploadthing/$',
     getParentRoute: () => rootServerRouteImport,
-  } as any);
+  } as any)
 const ApiAuthSplatServerRoute = ApiAuthSplatServerRouteImport.update({
-  id: "/api/auth/$",
-  path: "/api/auth/$",
+  id: '/api/auth/$',
+  path: '/api/auth/$',
   getParentRoute: () => rootServerRouteImport,
-} as any);
+} as any)
 
 export interface FileRoutesByFullPath {
-  "/": typeof IndexRoute;
-  "/dashboard": typeof DashboardRoute;
-  "/passkey": typeof authPasskeyRoute;
-  "/sign-in": typeof authSignInRoute;
-  "/sign-up": typeof authSignUpRoute;
+  '/': typeof IndexRoute
+  '/dashboard': typeof DashboardRoute
+  '/passkey': typeof authPasskeyRoute
+  '/sign-in': typeof authSignInRoute
+  '/sign-up': typeof authSignUpRoute
 }
 export interface FileRoutesByTo {
-  "/": typeof IndexRoute;
-  "/dashboard": typeof DashboardRoute;
-  "/passkey": typeof authPasskeyRoute;
-  "/sign-in": typeof authSignInRoute;
-  "/sign-up": typeof authSignUpRoute;
+  '/': typeof IndexRoute
+  '/dashboard': typeof DashboardRoute
+  '/passkey': typeof authPasskeyRoute
+  '/sign-in': typeof authSignInRoute
+  '/sign-up': typeof authSignUpRoute
 }
 export interface FileRoutesById {
-  __root__: typeof rootRouteImport;
-  "/": typeof IndexRoute;
-  "/dashboard": typeof DashboardRoute;
-  "/(auth)/passkey": typeof authPasskeyRoute;
-  "/(auth)/sign-in": typeof authSignInRoute;
-  "/(auth)/sign-up": typeof authSignUpRoute;
+  __root__: typeof rootRouteImport
+  '/': typeof IndexRoute
+  '/dashboard': typeof DashboardRoute
+  '/(auth)/passkey': typeof authPasskeyRoute
+  '/(auth)/sign-in': typeof authSignInRoute
+  '/(auth)/sign-up': typeof authSignUpRoute
 }
 export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath;
-  fullPaths: "/" | "/dashboard" | "/passkey" | "/sign-in" | "/sign-up";
-  fileRoutesByTo: FileRoutesByTo;
-  to: "/" | "/dashboard" | "/passkey" | "/sign-in" | "/sign-up";
+  fileRoutesByFullPath: FileRoutesByFullPath
+  fullPaths: '/' | '/dashboard' | '/passkey' | '/sign-in' | '/sign-up'
+  fileRoutesByTo: FileRoutesByTo
+  to: '/' | '/dashboard' | '/passkey' | '/sign-in' | '/sign-up'
   id:
-    | "__root__"
-    | "/"
-    | "/dashboard"
-    | "/(auth)/passkey"
-    | "/(auth)/sign-in"
-    | "/(auth)/sign-up";
-  fileRoutesById: FileRoutesById;
+    | '__root__'
+    | '/'
+    | '/dashboard'
+    | '/(auth)/passkey'
+    | '/(auth)/sign-in'
+    | '/(auth)/sign-up'
+  fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute;
-  DashboardRoute: typeof DashboardRoute;
-  authPasskeyRoute: typeof authPasskeyRoute;
-  authSignInRoute: typeof authSignInRoute;
-  authSignUpRoute: typeof authSignUpRoute;
+  IndexRoute: typeof IndexRoute
+  DashboardRoute: typeof DashboardRoute
+  authPasskeyRoute: typeof authPasskeyRoute
+  authSignInRoute: typeof authSignInRoute
+  authSignUpRoute: typeof authSignUpRoute
 }
 export interface FileServerRoutesByFullPath {
-  "/api/auth/$": typeof ApiAuthSplatServerRoute;
-  "/api/uploadthing/$": typeof ApiUploadthingSplatServerRoute;
+  '/api/auth/$': typeof ApiAuthSplatServerRoute
+  '/api/uploadthing/$': typeof ApiUploadthingSplatServerRoute
 }
 export interface FileServerRoutesByTo {
-  "/api/auth/$": typeof ApiAuthSplatServerRoute;
-  "/api/uploadthing/$": typeof ApiUploadthingSplatServerRoute;
+  '/api/auth/$': typeof ApiAuthSplatServerRoute
+  '/api/uploadthing/$': typeof ApiUploadthingSplatServerRoute
 }
 export interface FileServerRoutesById {
-  __root__: typeof rootServerRouteImport;
-  "/api/auth/$": typeof ApiAuthSplatServerRoute;
-  "/api/uploadthing/$": typeof ApiUploadthingSplatServerRoute;
+  __root__: typeof rootServerRouteImport
+  '/api/auth/$': typeof ApiAuthSplatServerRoute
+  '/api/uploadthing/$': typeof ApiUploadthingSplatServerRoute
 }
 export interface FileServerRouteTypes {
-  fileServerRoutesByFullPath: FileServerRoutesByFullPath;
-  fullPaths: "/api/auth/$" | "/api/uploadthing/$";
-  fileServerRoutesByTo: FileServerRoutesByTo;
-  to: "/api/auth/$" | "/api/uploadthing/$";
-  id: "__root__" | "/api/auth/$" | "/api/uploadthing/$";
-  fileServerRoutesById: FileServerRoutesById;
+  fileServerRoutesByFullPath: FileServerRoutesByFullPath
+  fullPaths: '/api/auth/$' | '/api/uploadthing/$'
+  fileServerRoutesByTo: FileServerRoutesByTo
+  to: '/api/auth/$' | '/api/uploadthing/$'
+  id: '__root__' | '/api/auth/$' | '/api/uploadthing/$'
+  fileServerRoutesById: FileServerRoutesById
 }
 export interface RootServerRouteChildren {
-  ApiAuthSplatServerRoute: typeof ApiAuthSplatServerRoute;
-  ApiUploadthingSplatServerRoute: typeof ApiUploadthingSplatServerRoute;
+  ApiAuthSplatServerRoute: typeof ApiAuthSplatServerRoute
+  ApiUploadthingSplatServerRoute: typeof ApiUploadthingSplatServerRoute
 }
 
-declare module "@tanstack/react-router" {
+declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    "/dashboard": {
-      id: "/dashboard";
-      path: "/dashboard";
-      fullPath: "/dashboard";
-      preLoaderRoute: typeof DashboardRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
-    "/": {
-      id: "/";
-      path: "/";
-      fullPath: "/";
-      preLoaderRoute: typeof IndexRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
-    "/(auth)/sign-up": {
-      id: "/(auth)/sign-up";
-      path: "/sign-up";
-      fullPath: "/sign-up";
-      preLoaderRoute: typeof authSignUpRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
-    "/(auth)/sign-in": {
-      id: "/(auth)/sign-in";
-      path: "/sign-in";
-      fullPath: "/sign-in";
-      preLoaderRoute: typeof authSignInRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
-    "/(auth)/passkey": {
-      id: "/(auth)/passkey";
-      path: "/passkey";
-      fullPath: "/passkey";
-      preLoaderRoute: typeof authPasskeyRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
+    '/dashboard': {
+      id: '/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof DashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/(auth)/sign-up': {
+      id: '/(auth)/sign-up'
+      path: '/sign-up'
+      fullPath: '/sign-up'
+      preLoaderRoute: typeof authSignUpRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/(auth)/sign-in': {
+      id: '/(auth)/sign-in'
+      path: '/sign-in'
+      fullPath: '/sign-in'
+      preLoaderRoute: typeof authSignInRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/(auth)/passkey': {
+      id: '/(auth)/passkey'
+      path: '/passkey'
+      fullPath: '/passkey'
+      preLoaderRoute: typeof authPasskeyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
-declare module "@tanstack/react-start/server" {
+declare module '@tanstack/react-start/server' {
   interface ServerFileRoutesByPath {
-    "/api/uploadthing/$": {
-      id: "/api/uploadthing/$";
-      path: "/api/uploadthing/$";
-      fullPath: "/api/uploadthing/$";
-      preLoaderRoute: typeof ApiUploadthingSplatServerRouteImport;
-      parentRoute: typeof rootServerRouteImport;
-    };
-    "/api/auth/$": {
-      id: "/api/auth/$";
-      path: "/api/auth/$";
-      fullPath: "/api/auth/$";
-      preLoaderRoute: typeof ApiAuthSplatServerRouteImport;
-      parentRoute: typeof rootServerRouteImport;
-    };
+    '/api/uploadthing/$': {
+      id: '/api/uploadthing/$'
+      path: '/api/uploadthing/$'
+      fullPath: '/api/uploadthing/$'
+      preLoaderRoute: typeof ApiUploadthingSplatServerRouteImport
+      parentRoute: typeof rootServerRouteImport
+    }
+    '/api/auth/$': {
+      id: '/api/auth/$'
+      path: '/api/auth/$'
+      fullPath: '/api/auth/$'
+      preLoaderRoute: typeof ApiAuthSplatServerRouteImport
+      parentRoute: typeof rootServerRouteImport
+    }
   }
 }
 
@@ -191,14 +191,14 @@ const rootRouteChildren: RootRouteChildren = {
   authPasskeyRoute: authPasskeyRoute,
   authSignInRoute: authSignInRoute,
   authSignUpRoute: authSignUpRoute,
-};
+}
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
-  ._addFileTypes<FileRouteTypes>();
+  ._addFileTypes<FileRouteTypes>()
 const rootServerRouteChildren: RootServerRouteChildren = {
   ApiAuthSplatServerRoute: ApiAuthSplatServerRoute,
   ApiUploadthingSplatServerRoute: ApiUploadthingSplatServerRoute,
-};
+}
 export const serverRouteTree = rootServerRouteImport
   ._addFileChildren(rootServerRouteChildren)
-  ._addFileTypes<FileServerRouteTypes>();
+  ._addFileTypes<FileServerRouteTypes>()
