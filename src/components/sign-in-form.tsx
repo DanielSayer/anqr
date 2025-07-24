@@ -6,6 +6,8 @@ import { useAppForm } from "~/hooks/use-app-form";
 import { signIn } from "~/utils/auth-client";
 import { AnimatedCompleteButton } from "./check-button";
 import { useState } from "react";
+import { Button } from "./ui/button";
+import { useSignIn } from "~/hooks/use-sign-in";
 
 const SignInSchema = type({
   email: type("string.email").configure({ message: "Must be a valid email" }),
@@ -17,6 +19,10 @@ type Credentials = type.infer<typeof SignInSchema>;
 function SignInForm() {
   const navigate = useNavigate();
   const [isSignedIn, setIsSignedIn] = useState(false);
+  const [isUsingPasskey, setIsUsingPasskey] = useState(true);
+  const toggle = () => setIsUsingPasskey(!isUsingPasskey);
+  const { mutateAsync, isPending } = useSignIn();
+
   const form = useAppForm({
     defaultValues: {
       email: "",
@@ -25,7 +31,11 @@ function SignInForm() {
     validators: {
       onChange: SignInSchema,
       onSubmitAsync: async ({ value }) => {
-        const data = await mutateAsync(value);
+        const data = await mutateAsync({
+          email: value.email,
+          password: value.password,
+          isUsingPasskey,
+        });
 
         if (data?.message) {
           return {
@@ -42,22 +52,6 @@ function SignInForm() {
       navigate({ to: "/dashboard", from: "/sign-in" });
     },
   });
-
-  const { mutateAsync, isPending } = useMutation({
-    mutationFn: async (user: Credentials) => {
-      const result = await signIn.email({
-        email: user.email,
-        password: user.password,
-      });
-
-      if (result.error) {
-        return { message: result.error.message };
-      }
-    },
-  });
-
-  const errors = useStore(form.store, (state) => state.errorMap);
-  console.log(errors);
 
   return (
     <form
@@ -77,16 +71,18 @@ function SignInForm() {
           />
         )}
       </form.AppField>
-      <form.AppField name="password">
-        {(field) => (
-          <field.Input
-            label="Password"
-            type="password"
-            autoComplete="current-password"
-            placeholder="Password"
-          />
-        )}
-      </form.AppField>
+      {!isUsingPasskey && (
+        <form.AppField name="password">
+          {(field) => (
+            <field.Input
+              label="Password"
+              type="password"
+              autoComplete="current-password"
+              placeholder="Password"
+            />
+          )}
+        </form.AppField>
+      )}
 
       <AnimatedCompleteButton
         isLoading={isPending}
@@ -97,6 +93,9 @@ function SignInForm() {
       >
         Sign in
       </AnimatedCompleteButton>
+      <Button onClick={() => toggle()} type="button" variant="ghost" size="sm">
+        {isUsingPasskey ? "Sign in with password" : "Sign in with passkey"}
+      </Button>
     </form>
   );
 }

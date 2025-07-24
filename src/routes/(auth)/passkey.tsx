@@ -54,6 +54,10 @@ function RouteComponent() {
   if (isSetupComplete) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 flex items-center justify-center p-4">
+        <Confetti
+          ref={confettiRef}
+          className="absolute left-0 top-0 z-0 size-full"
+        />
         <Card className="w-full max-w-md shadow-xl border-0 bg-white/80 backdrop-blur-sm">
           <CardHeader className="text-center space-y-4">
             <div className="mx-auto w-16 h-16 bg-green-100 rounded-full flex items-center justify-center">
@@ -68,15 +72,11 @@ function RouteComponent() {
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
-            <Confetti
-              ref={confettiRef}
-              className="absolute left-0 top-0 z-0 size-full"
-            />
             <Link
               to="/dashboard"
               className={buttonVariants({
                 variant: "default",
-                className: "w-full",
+                className: "w-full z-10",
               })}
             >
               Continue to Dashboard
