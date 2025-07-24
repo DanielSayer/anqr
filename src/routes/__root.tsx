@@ -62,7 +62,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     errorComponent: DefaultCatchBoundary,
     notFoundComponent: () => <NotFound />,
     shellComponent: RootDocument,
-  }
+  },
 );
 
 function RootDocument({ children }: { children: ReactNode }) {
