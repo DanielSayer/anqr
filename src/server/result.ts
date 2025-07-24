@@ -25,13 +25,13 @@ export function fail<E = unknown>(error: E): Failure<E> {
 }
 
 export function isSuccess<T = void, E = unknown>(
-  result: Result<T, E>
+  result: Result<T, E>,
 ): result is Success<T> {
   return result._tag === "Success";
 }
 
 export function isFailure<T = void, E = unknown>(
-  result: Result<T, E>
+  result: Result<T, E>,
 ): result is Failure<E> {
   return result._tag === "Failure";
 }

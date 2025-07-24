@@ -4,7 +4,7 @@ import { Shield, Smartphone, Sparkles, Zap } from "lucide-react";
 import { useRef, useState } from "react";
 import { FingerprintIcon } from "~/components/animate-ui/icons/fingerprint";
 import { AnimatedCheckIcon } from "~/components/animated-icons";
-import { Confetti, ConfettiRef } from "~/components/magicui/confetti";
+import { Confetti, type ConfettiRef } from "~/components/magicui/confetti";
 import { ShimmerButton } from "~/components/magicui/shimmer-button";
 import { Spinner } from "~/components/spinner";
 import { Alert, AlertDescription } from "~/components/ui/alert";

@@ -1,5 +1,5 @@
-import { Button } from "./ui/button";
 import { Spinner } from "./spinner";
+import { Button } from "./ui/button";
 
 type LoadingButtonProps = {
   isLoading: boolean;

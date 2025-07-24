@@ -49,7 +49,7 @@ interface DefaultIconProps<T = string> {
   animate?: TriggerProp<T>;
   onAnimateChange?: (
     value: boolean,
-    animation: StaticAnimations | string
+    animation: StaticAnimations | string,
   ) => void;
   animateOnHover?: TriggerProp<T>;
   animateOnTap?: TriggerProp<T>;
@@ -79,7 +79,7 @@ interface IconWrapperProps<T> extends IconProps<T> {
 }
 
 const AnimateIconContext = React.createContext<AnimateIconContextValue | null>(
-  null
+  null,
 );
 
 function useAnimateIconContext() {
@@ -116,7 +116,7 @@ function AnimateIcon({
         typeof trigger === "string" ? trigger : animation;
       setLocalAnimate(true);
     },
-    [animation]
+    [animation],
   );
 
   const stopAnimation = React.useCallback(() => {
@@ -132,7 +132,7 @@ function AnimateIcon({
 
   React.useEffect(
     () => onAnimateChange?.(localAnimate, currentAnimation.current),
-    [localAnimate, onAnimateChange]
+    [localAnimate, onAnimateChange],
   );
 
   React.useEffect(() => {
@@ -226,7 +226,7 @@ function IconWrapper<T extends string>({
           className={cn(
             className,
             (animationToUse === "path" || animationToUse === "path-loop") &&
-              pathClassName
+              pathClassName,
           )}
           {...props}
         />
@@ -258,7 +258,7 @@ function IconWrapper<T extends string>({
           className={cn(
             className,
             (animationProp === "path" || animationProp === "path-loop") &&
-              pathClassName
+              pathClassName,
           )}
           {...props}
         />
@@ -272,7 +272,7 @@ function IconWrapper<T extends string>({
       className={cn(
         className,
         (animationProp === "path" || animationProp === "path-loop") &&
-          pathClassName
+          pathClassName,
       )}
       {...props}
     />
@@ -314,7 +314,7 @@ function getVariants<
         (v) =>
           typeof v === "object" &&
           v !== null &&
-          ("ease" in v || "duration" in v || "times" in v)
+          ("ease" in v || "duration" in v || "times" in v),
       );
 
       if (hasNestedKeys) {

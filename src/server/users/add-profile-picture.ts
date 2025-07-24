@@ -5,7 +5,7 @@ import { ok } from "../result";
 
 export const updateProfilePicture = async (
   imageUrl: string,
-  userId: string
+  userId: string,
 ) => {
   await db.update(user).set({ image: imageUrl }).where(eq(user.id, userId));
 

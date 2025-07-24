@@ -86,7 +86,7 @@ function SignUpForm() {
     multiple: false,
     onDrop: handleImageUpload,
     accept: generateClientDropzoneAccept(
-      generatePermittedFileTypes(routeConfig).fileTypes
+      generatePermittedFileTypes(routeConfig).fileTypes,
     ),
   });
 

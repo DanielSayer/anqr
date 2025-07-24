@@ -1,18 +1,18 @@
-import { useFieldContext } from "~/hooks/form-context";
-import { cn } from "~/lib/utils";
 import { Slot } from "@radix-ui/react-slot";
 import { useStore } from "@tanstack/react-form";
-import { createContext, use, useId } from "react";
-import { Label } from "./ui/label";
 import type { ArkError } from "arktype";
+import { createContext, use, useId } from "react";
+import { useFieldContext } from "~/hooks/form-context";
+import { cn } from "~/lib/utils";
 import { ErrorMessage } from "./error-message";
+import { Label } from "./ui/label";
 
 type FormItemContextValue = {
   id: string;
 };
 
 const FormItemContext = createContext<FormItemContextValue>(
-  {} as FormItemContextValue
+  {} as FormItemContextValue,
 );
 
 const useFormField = <T,>() => {
@@ -20,7 +20,7 @@ const useFormField = <T,>() => {
   const item = use(FormItemContext);
   const errors = useStore(
     field.store,
-    (state) => state.meta.errors as ArkError[]
+    (state) => state.meta.errors as ArkError[],
   );
 
   if (!item) {
@@ -35,7 +35,7 @@ const useFormField = <T,>() => {
     isError: IsError(
       field.form.state.submissionAttempts > 0,
       errors.length,
-      field.state.meta.isBlurred
+      field.state.meta.isBlurred,
     ),
     errors,
     field,
@@ -142,7 +142,7 @@ export {
 function IsError(
   hasSubmitted: boolean,
   errorCount: number,
-  isBlurred: boolean
+  isBlurred: boolean,
 ) {
   if (hasSubmitted && errorCount > 0) {
     return true;

@@ -1,20 +1,15 @@
-import { useStore } from "@tanstack/react-form";
-import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
 import { type } from "arktype";
-import { useAppForm } from "~/hooks/use-app-form";
-import { signIn } from "~/utils/auth-client";
-import { AnimatedCompleteButton } from "./check-button";
 import { useState } from "react";
-import { Button } from "./ui/button";
+import { useAppForm } from "~/hooks/use-app-form";
 import { useSignIn } from "~/hooks/use-sign-in";
+import { AnimatedCompleteButton } from "./check-button";
+import { Button } from "./ui/button";
 
 const SignInSchema = type({
   email: type("string.email").configure({ message: "Must be a valid email" }),
   password: "string",
 });
-
-type Credentials = type.infer<typeof SignInSchema>;
 
 function SignInForm() {
   const navigate = useNavigate();
