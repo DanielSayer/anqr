@@ -14,8 +14,10 @@ import { FormControl, FormLabel, FormMessage } from "./form";
 import { LoadingButton } from "./loading-button";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Button } from "./ui/button";
+import { useNavigate } from "@tanstack/react-router";
 
 function SignUpForm() {
+  const navigate = useNavigate();
   const [loadingText, setLoadingText] = useState("Creating account...");
   const [image, setImage] = useState<{
     name: string;
@@ -70,6 +72,7 @@ function SignUpForm() {
     },
     onSuccess: () => {
       setLoadingText("Account created!");
+      navigate({ to: "/passkey", from: "/sign-up" });
     },
   });
 

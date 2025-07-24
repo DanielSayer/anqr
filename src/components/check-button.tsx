@@ -1,5 +1,5 @@
-import React, { ComponentProps, useState } from "react";
-import { AnimtatedCheckIcon } from "./animated-icons";
+import { ComponentProps } from "react";
+import { AnimatedCheckIcon } from "./animated-icons";
 import { LoadingButton } from "./loading-button";
 
 type AnimatedCompleteButtonProps = ComponentProps<typeof LoadingButton> & {
@@ -24,7 +24,7 @@ export const AnimatedCompleteButton = ({
     >
       {isComplete ? (
         <>
-          <AnimtatedCheckIcon isChecked />
+          <AnimatedCheckIcon isChecked />
           {completeText}
         </>
       ) : (

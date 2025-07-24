@@ -73,13 +73,11 @@ export const passkey = pgTable("passkey", {
   userId: text("user_id")
     .notNull()
     .references(() => user.id, { onDelete: "cascade" }),
-  credentialId: text("credential_id").notNull(),
+  credentialID: text("credential_i_d").notNull(),
   counter: integer("counter").notNull(),
   deviceType: text("device_type").notNull(),
   backedUp: boolean("backed_up").notNull(),
-  transports: text("transports").notNull(),
-  createdAt: timestamp("created_at").$defaultFn(
-    () => /* @__PURE__ */ new Date()
-  ),
+  transports: text("transports"),
+  createdAt: timestamp("created_at"),
   aaguid: text("aaguid"),
 });

@@ -1,14 +1,11 @@
+import { useStore } from "@tanstack/react-form";
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
 import { type } from "arktype";
 import { useAppForm } from "~/hooks/use-app-form";
 import { signIn } from "~/utils/auth-client";
-import { LoadingButton } from "./loading-button";
 import { AnimatedCompleteButton } from "./check-button";
 import { useState } from "react";
-import { useStore } from "@tanstack/react-form";
-import { FormMessage } from "./form";
-import { ErrorMessage } from "./error-message";
 
 const SignInSchema = type({
   email: type("string.email").configure({ message: "Must be a valid email" }),
@@ -19,6 +16,7 @@ type Credentials = type.infer<typeof SignInSchema>;
 
 function SignInForm() {
   const navigate = useNavigate();
+  const [isSignedIn, setIsSignedIn] = useState(false);
   const form = useAppForm({
     defaultValues: {
       email: "",
@@ -38,7 +36,9 @@ function SignInForm() {
         }
       },
     },
-    onSubmit: () => {
+    onSubmit: async () => {
+      setIsSignedIn(true);
+      await new Promise((resolve) => setTimeout(resolve, 1000));
       navigate({ to: "/dashboard", from: "/sign-in" });
     },
   });
@@ -93,7 +93,7 @@ function SignInForm() {
         type="submit"
         loadingText="Signing in..."
         completeText="Done!"
-        isComplete={form.state.isSubmitSuccessful}
+        isComplete={isSignedIn}
       >
         Sign in
       </AnimatedCompleteButton>

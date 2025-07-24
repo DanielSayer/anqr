@@ -15,6 +15,7 @@ import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as authSignUpRouteImport } from './routes/(auth)/sign-up'
 import { Route as authSignInRouteImport } from './routes/(auth)/sign-in'
+import { Route as authPasskeyRouteImport } from './routes/(auth)/passkey'
 import { ServerRoute as ApiUploadthingSplatServerRouteImport } from './routes/api/uploadthing/$'
 import { ServerRoute as ApiAuthSplatServerRouteImport } from './routes/api/auth/$'
 
@@ -40,6 +41,11 @@ const authSignInRoute = authSignInRouteImport.update({
   path: '/sign-in',
   getParentRoute: () => rootRouteImport,
 } as any)
+const authPasskeyRoute = authPasskeyRouteImport.update({
+  id: '/(auth)/passkey',
+  path: '/passkey',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiUploadthingSplatServerRoute =
   ApiUploadthingSplatServerRouteImport.update({
     id: '/api/uploadthing/$',
@@ -55,12 +61,14 @@ const ApiAuthSplatServerRoute = ApiAuthSplatServerRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRoute
+  '/passkey': typeof authPasskeyRoute
   '/sign-in': typeof authSignInRoute
   '/sign-up': typeof authSignUpRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRoute
+  '/passkey': typeof authPasskeyRoute
   '/sign-in': typeof authSignInRoute
   '/sign-up': typeof authSignUpRoute
 }
@@ -68,20 +76,28 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRoute
+  '/(auth)/passkey': typeof authPasskeyRoute
   '/(auth)/sign-in': typeof authSignInRoute
   '/(auth)/sign-up': typeof authSignUpRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/dashboard' | '/sign-in' | '/sign-up'
+  fullPaths: '/' | '/dashboard' | '/passkey' | '/sign-in' | '/sign-up'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/dashboard' | '/sign-in' | '/sign-up'
-  id: '__root__' | '/' | '/dashboard' | '/(auth)/sign-in' | '/(auth)/sign-up'
+  to: '/' | '/dashboard' | '/passkey' | '/sign-in' | '/sign-up'
+  id:
+    | '__root__'
+    | '/'
+    | '/dashboard'
+    | '/(auth)/passkey'
+    | '/(auth)/sign-in'
+    | '/(auth)/sign-up'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   DashboardRoute: typeof DashboardRoute
+  authPasskeyRoute: typeof authPasskeyRoute
   authSignInRoute: typeof authSignInRoute
   authSignUpRoute: typeof authSignUpRoute
 }
@@ -141,6 +157,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof authSignInRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/(auth)/passkey': {
+      id: '/(auth)/passkey'
+      path: '/passkey'
+      fullPath: '/passkey'
+      preLoaderRoute: typeof authPasskeyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 declare module '@tanstack/react-start/server' {
@@ -165,6 +188,7 @@ declare module '@tanstack/react-start/server' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   DashboardRoute: DashboardRoute,
+  authPasskeyRoute: authPasskeyRoute,
   authSignInRoute: authSignInRoute,
   authSignUpRoute: authSignUpRoute,
 }

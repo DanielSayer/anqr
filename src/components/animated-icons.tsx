@@ -5,7 +5,7 @@ type AnimatedCheckIconProps = {
   className?: string;
 };
 
-function AnimtatedCheckIcon({ isChecked, className }: AnimatedCheckIconProps) {
+function AnimatedCheckIcon({ isChecked, className }: AnimatedCheckIconProps) {
   return (
     <motion.svg
       data-slot="checkbox-indicator"
@@ -44,4 +44,4 @@ function AnimtatedCheckIcon({ isChecked, className }: AnimatedCheckIconProps) {
   );
 }
 
-export { AnimtatedCheckIcon };
+export { AnimatedCheckIcon };

@@ -13,7 +13,11 @@ export const auth = betterAuth({
     enabled: true,
   },
   plugins: [
-    passkey({ rpID: env.RP_ID, rpName: "anqr", origin: env.BETTER_AUTH_URL }),
+    passkey({
+      rpID: env.RP_ID,
+      rpName: "anqr",
+      origin: env.BETTER_AUTH_URL,
+    }),
     reactStartCookies(),
   ],
 });
