@@ -1,4 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
+import { useNavigate } from "@tanstack/react-router";
 import { useDropzone } from "@uploadthing/react";
 import { Plus, X } from "lucide-react";
 import { useState } from "react";
@@ -14,7 +15,6 @@ import { FormControl, FormLabel, FormMessage } from "./form";
 import { LoadingButton } from "./loading-button";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Button } from "./ui/button";
-import { useNavigate } from "@tanstack/react-router";
 
 function SignUpForm() {
   const navigate = useNavigate();

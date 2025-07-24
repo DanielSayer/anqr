@@ -11,14 +11,14 @@
   "formatter": {
     "enabled": true,
     "indentStyle": "space",
-    "includes": ["!routeTree.gen.ts"]
+    "includes": ["./src/**/*", "!src/routeTree.gen.ts"]
   },
   "linter": {
     "enabled": true,
     "rules": {
       "recommended": true
     },
-    "includes": ["!routeTree.gen.ts"]
+    "includes": ["./src/**/*", "!src/routeTree.gen.ts"]
   },
   "javascript": {
     "formatter": {
